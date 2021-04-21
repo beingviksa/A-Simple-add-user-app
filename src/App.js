@@ -1,15 +1,25 @@
-import React from "react";
-import SearchForm from "./SearchForm";
-import Stories from "./Stories";
-import Buttons from "./Buttons";
-function App() {
+import React, { useState } from "react";
+import AddUser from "./components/Users/AddUser";
+import UsersList from "./components/Users/UsersList";
+
+const App = () => {
+  const [usersList, setUsersList] = useState([]);
+  const addUserHandler = (uName, uAge) => {
+    const newUser = {
+      id: Math.random() * 1,
+      name: uName,
+      age: uAge,
+    };
+    setUsersList((prevUsersList) => {
+      return [...prevUsersList, newUser];
+    });
+  };
   return (
-    <>
-      <SearchForm />
-      <Buttons />
-      <Stories />
-    </>
+    <div>
+      <AddUser onAddUser={addUserHandler} />
+      <UsersList users={usersList} />
+    </div>
   );
-}
+};
 
 export default App;
